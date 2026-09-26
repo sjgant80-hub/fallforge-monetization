@@ -159,6 +159,7 @@
     <a href="#first">First move</a>
     <a href="#ladder">The ladder</a>
     <a href="#gov">Gov track</a>
+    <a href="#growth">Growth</a>
     <a href="#sequence">Sequence</a>
     <button class="theme" id="theme" type="button">Theme</button>
   </div>
@@ -332,6 +333,68 @@
     <div class="card"><span class="ic">Positioning</span><h3>Pitch the threshold, not a multiple</h3><p>The own-vs-rent calculator gives <em>this</em> buyer's real number and honestly returns rent-wins below ~500k–2M tokens/day. That honesty is the conversion asset.</p></div>
     <div class="card"><span class="ic">Positioning</span><h3>Sit in the seam</h3><p>Local-inference tooling has no proof; AI-governance has no runtime receipt. Sovereign local + a verifiable per-inference receipt is the unoccupied ground.</p></div>
     <div class="card"><span class="ic">Positioning</span><h3>Sell friction, not code</h3><p>The code stays MIT. Charge for the deployment friction, the enterprise liability, and the minting. Konomi architecture credited on every surface.</p></div>
+  </div>
+</div></section>
+
+<style>
+  #growth .growth{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:24px}
+  @media (max-width:820px){#growth .growth{grid-template-columns:1fr}}
+  #growth .gcard{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:24px;transition:border-color .18s,transform .18s,box-shadow .18s}
+  #growth .gcard:hover{border-color:color-mix(in srgb,var(--accent) 42%,var(--line));transform:translateY(-2px);box-shadow:0 14px 40px -26px color-mix(in srgb,var(--accent) 62%,transparent)}
+  #growth .gcard .ic{font-family:var(--mono);font-size:.68rem;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;font-weight:700;display:inline-block;margin-bottom:.5rem;padding:.16rem .5rem;border:1px solid color-mix(in srgb,var(--accent) 26%,var(--line));border-radius:20px;background:color-mix(in srgb,var(--accent) 7%,transparent)}
+  #growth .gcard h3{font-size:1.16rem;margin:.2rem 0 .3rem}
+  #growth .gcard .tl{color:var(--accent);font-size:.86rem;font-weight:600;margin-bottom:.6rem}
+  #growth .gcard p{color:var(--muted);font-size:.92rem;margin:0 0 .6rem}
+  #growth .gcard p:last-child{margin-bottom:0}
+  #growth .gcard b{color:var(--ink)}
+  #growth .gcard .native{font-size:.85rem;color:var(--ok);border-left:2px solid var(--ok);padding-left:10px;margin-top:10px}
+  #growth .insight{margin-top:24px;background:linear-gradient(120deg,color-mix(in srgb,var(--accent) 10%,var(--panel)),var(--panel));border:1px solid color-mix(in srgb,var(--accent) 42%,var(--line));border-radius:16px;padding:26px}
+  #growth .insight h3{margin:0 0 .4rem;font-size:1.2rem}
+  #growth .insight p{margin:0;color:var(--muted);font-size:.98rem;max-width:80ch}
+  #growth .insight b{color:var(--ink)}
+</style>
+<section id="growth" class="anchor"><div class="wrap">
+  <span class="eyebrow">Growth rails</span>
+  <h2>Four channels — all selling the same one thing</h2>
+  <p class="lead">Affiliate, white-label, "NFT" and crypto — reframed through what the estate already owns. The estate is web3's <em>substance</em> without its baggage: an ownable capability wallet, a signed royalty cascade, transferable credentials, Merkle anchoring, a p2p mesh — sovereign, MIT, and provable.</p>
+  <div class="growth">
+
+    <div class="gcard">
+      <span class="ic">White-label · scale channel</span>
+      <h3>Every agency becomes a reseller</h3>
+      <div class="tl">Skin £500–£1.5k/mo + rev-share · OEM £2.5k–£6k/mo</div>
+      <p>The estate is already re-skinnable per brand — a <code>kard</code> carries a <code>skinRef</code>, konomi-skins is the theming layer. An agency drops their brand on a working proof-and-mint stack and resells it (the GoHighLevel / Vendasta model, applied to provable AI). One good white-label partner is a sales team you don't pay a salary.</p>
+      <p class="native">Native asset: kard skinRef + konomi-design-kit — the white-label kernel already exists.</p>
+    </div>
+
+    <div class="gcard">
+      <span class="ic">Affiliate · reach channel</span>
+      <h3>A signed royalty cascade, not an honour system</h3>
+      <div class="tl">30% lifetime recurring on Care · flat bounty per mint</div>
+      <p>Conventional program on FirstPromoter / PartnerStack now — recurring-on-the-retainer is what makes it sticky. The viral artifact is the signed scorecard: <b>a proof that can say you LOST</b> is more shareable than a brag; put a referral handle in its metadata.</p>
+      <p class="native">Native asset: the-wallet's <code>lineageSplit</code> — downstream value mints upstream credit, signed and capped so provenance appreciates but payout can't run away. Affiliate enforced by the kernel, no platform in the middle.</p>
+    </div>
+
+    <div class="gcard">
+      <span class="ic">"NFT" · ownable proof</span>
+      <h3>Ownable proof, not collectibles</h3>
+      <div class="tl">The Kard Marketplace (ladder Tier 4)</div>
+      <p>Skip NFT-as-JPEG entirely. The real primitive — a signed, ownable, verifiable credential — is what the estate already mints: a <code>kard</code> is an ownable capability token, a scorecard is a verifiable credential, and provenance bundles carry real conformance levels. Anchor a <b>hash</b> on-chain for public provenance when wanted — never the content.</p>
+      <p class="native">Native assets: kard + scorecard + kcc-mint (1,410 live) + kar-anchor (Merkle). Resale royalties flow via lineageSplit — the one legitimate NFT-royalty mechanic, capped.</p>
+    </div>
+
+    <div class="gcard">
+      <span class="ic">Crypto · rail, not a coin</span>
+      <h3>Payment + anchor + mesh</h3>
+      <div class="tl">Stablecoin in · hashes anchored · p2p distribution</div>
+      <p>Accept stablecoin alongside Stripe (global, instant, on-thesis for the sovereign buyer). Anchor proof hashes for timestamped provenance. Let the mesh (p2p, identity-as-address, kards as bearer credentials) be the distribution. <b>No speculative token</b> — a coin launch turns "provable AI" into "another crypto project" and invites regulators before the first enterprise reference; keep the internal credit closed ("no money out").</p>
+      <p class="native">Native assets: the mesh (r7 + webrtc + fallroom), kcc (closed credit), kar-anchor.</p>
+    </div>
+
+  </div>
+  <div class="insight">
+    <h3>The one insight that ties it together</h3>
+    <p><b>FallForge is web3's substance without web3's baggage.</b> The ownable / verifiable / royalty-bearing / decentralized primitives that NFTs and tokens promised and mostly failed to deliver — here they're sovereign, MIT, and provable. White-label is the scale channel (do it first), affiliate is the reach channel (with the signed royalty cascade underneath), "NFT" means ownable proof, and crypto is a payment-and-distribution rail — every one of them selling the same thing the ladder sells: <b>proof you own and anyone can re-run.</b></p>
   </div>
 </div></section>
 
