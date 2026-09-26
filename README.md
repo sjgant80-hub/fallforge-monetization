@@ -1,3 +1,5 @@
+**▶ [Live site](https://sjgant80-hub.github.io/fallforge-monetization/)**
+
 # FallForge — Monetization Strategy (the provable-AI ladder)
 
 **Kar, 2026-09-26.** Grounded in the real estate: fallforgemint (LIVE), fallforge-store (shipped), agent-proof (live), witness (published Action), fall-os (the live game), the UK Sovereign AI procurement, and the market research already in the estate. Sovereign-first. Four tiers from the guide, sharpened, sequenced, and priced.

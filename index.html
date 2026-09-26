@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>FallForge — the provable-AI ladder</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="FallForge monetization strategy: own the AI you're renting — a private model, with a receipt that could fail, that anyone can re-run. A sequenced, priced ladder from self-serve mint to a sovereign foundry, a proof-as-a-subscription retainer, and the UK Sovereign AI track.">
+<meta name="theme-color" content="#0b0e14">
+<meta property="og:title" content="FallForge — the provable-AI ladder">
+<meta property="og:description" content="Own the AI you're renting — a private model, with a receipt that could fail, that anyone can re-run.">
+<style>
+  :root{
+    --bg:#f7f8fa; --panel:#fff; --panel2:#f1f4f8; --ink:#0d1520; --muted:#576373; --faint:#8a94a3;
+    --line:#e3e8ef; --accent:#3b5bdb; --accent2:#7048e8; --accent-ink:#fff;
+    --ok:#0c9463; --warn:#d9880a; --gold:#b7791f;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,system-ui,sans-serif;
+    --mono:ui-monospace,"SF Mono","Cascadia Mono",Menlo,Consolas,monospace;
+    --maxw:1120px; --r:14px;
+  }
+  @media (prefers-color-scheme:dark){:root:not([data-theme=light]){
+    --bg:#080b11; --panel:#111722; --panel2:#161d2a; --ink:#e8eef6; --muted:#8d99a9; --faint:#5b6675;
+    --line:#1e2735; --accent:#5c7cfa; --accent2:#9775fa; --accent-ink:#080b11;
+    --ok:#2fbd85; --warn:#e6a23c; --gold:#e0b357;
+  }}
+  :root[data-theme=dark]{--bg:#080b11;--panel:#111722;--panel2:#161d2a;--ink:#e8eef6;--muted:#8d99a9;--faint:#5b6675;--line:#1e2735;--accent:#5c7cfa;--accent2:#9775fa;--accent-ink:#080b11;--ok:#2fbd85;--warn:#e6a23c;--gold:#e0b357}
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.62;-webkit-font-smoothing:antialiased;position:relative}
+  body::before{content:"";position:fixed;inset:0;z-index:-2;pointer-events:none;background:radial-gradient(900px 520px at 12% -8%,color-mix(in srgb,var(--accent) 13%,transparent),transparent 62%),radial-gradient(760px 440px at 92% 2%,color-mix(in srgb,var(--accent2) 11%,transparent),transparent 60%)}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px}
+  a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+  code{font-family:var(--mono);font-size:.88em;background:var(--panel2);border:1px solid var(--line);border-radius:6px;padding:.08em .38em}
+  .mono{font-family:var(--mono)}
+  h1,h2,h3{letter-spacing:-.022em;line-height:1.16;text-wrap:balance}
+  .eyebrow{font-family:var(--mono);font-size:.73rem;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);font-weight:600;display:inline-flex;align-items:center;gap:8px}
+  .eyebrow::before{content:"";width:22px;height:1px;background:linear-gradient(90deg,var(--accent),transparent)}
+  section{padding:66px 0;border-bottom:1px solid var(--line)}
+  section h2{font-size:clamp(1.5rem,3.3vw,2rem);margin:.4rem 0 .6rem}
+  .lead{color:var(--muted);font-size:1.05rem;max-width:72ch}
+  .anchor{scroll-margin-top:70px}
+
+  nav{position:sticky;top:0;z-index:60;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--line)}
+  nav .wrap{display:flex;align-items:center;gap:18px;height:56px}
+  .brand{font-weight:800;font-size:1.02rem;letter-spacing:-.03em;display:flex;align-items:center;gap:9px}
+  .brand .dot{width:11px;height:11px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));box-shadow:0 0 0 4px color-mix(in srgb,var(--accent) 20%,transparent)}
+  nav .links{margin-left:auto;display:flex;gap:16px;align-items:center;font-size:.88rem}
+  nav .links a{color:var(--muted)}nav .links a:hover{color:var(--ink);text-decoration:none}
+  .theme{background:none;border:1px solid var(--line);color:var(--muted);border-radius:8px;padding:5px 10px;cursor:pointer;font-size:.82rem;font-family:var(--sans)}
+  @media (max-width:820px){nav .links a{display:none}}
+
+  .hero{padding:88px 0 64px}
+  .hero h1{font-size:clamp(2.2rem,6vw,3.6rem);margin:.6rem 0 .3rem;font-weight:850;letter-spacing:-.035em;max-width:18ch;
+    background:linear-gradient(120deg,var(--ink) 34%,var(--accent) 76%,var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .hero .wedge{font-size:clamp(1.15rem,2.7vw,1.55rem);font-weight:650;margin:1rem 0 .3rem;letter-spacing:-.02em;max-width:24ch;color:var(--ink)}
+  .hero p.lead{font-size:1.1rem;margin:1rem 0 1.6rem}
+  .cta{display:flex;gap:12px;flex-wrap:wrap}
+  .btn{display:inline-block;padding:.62rem 1.05rem;border-radius:10px;border:1px solid var(--line);background:var(--panel);color:var(--ink);font-size:.9rem;font-weight:550;cursor:pointer;font-family:var(--sans)}
+  .btn:hover{border-color:var(--accent);text-decoration:none}
+  .btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);box-shadow:0 8px 26px -14px color-mix(in srgb,var(--accent) 85%,transparent)}
+  .btn.primary:hover{filter:brightness(1.07)}
+  .badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:26px}
+  .badge{font-family:var(--mono);font-size:.72rem;color:var(--muted);border:1px solid var(--line);border-radius:20px;padding:.3rem .72rem;background:var(--panel)}
+  .badge b{color:var(--ok);font-weight:700}
+
+  .wedgegrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:24px}
+  @media (max-width:820px){.wedgegrid{grid-template-columns:1fr}}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:20px;transition:border-color .18s,transform .18s,box-shadow .18s}
+  .card:hover{border-color:color-mix(in srgb,var(--accent) 40%,var(--line));transform:translateY(-2px);box-shadow:0 10px 34px -22px color-mix(in srgb,var(--accent) 60%,transparent)}
+  .card .ic{font-family:var(--mono);font-size:.68rem;color:var(--accent);letter-spacing:.1em;text-transform:uppercase;font-weight:700;display:inline-block;margin-bottom:.55rem;padding:.16rem .5rem;border:1px solid color-mix(in srgb,var(--accent) 26%,var(--line));border-radius:20px;background:color-mix(in srgb,var(--accent) 7%,transparent)}
+  .card h3{font-size:1.04rem;margin:0 0 .35rem}
+  .card p{margin:0;color:var(--muted);font-size:.93rem}
+  .card p.no::before{content:"✕ ";color:var(--warn);font-weight:700}
+  .card.moat{border-color:color-mix(in srgb,var(--ok) 45%,var(--line));border-left:3px solid var(--ok)}
+  .card.moat p.yes::before{content:"✓ ";color:var(--ok);font-weight:700}
+
+  /* FIRST MOVE callout */
+  .firstmove{background:linear-gradient(180deg,color-mix(in srgb,var(--accent) 9%,var(--panel)),var(--panel));border:1px solid color-mix(in srgb,var(--accent) 45%,var(--line));border-radius:16px;padding:30px 26px;position:relative;overflow:hidden}
+  .firstmove::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:linear-gradient(180deg,var(--accent),var(--accent2))}
+  .firstmove .tag{font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:700}
+  .firstmove h2{font-size:clamp(1.4rem,3vw,1.9rem);margin:.4rem 0 .5rem}
+  .firstmove .price{font-size:1.5rem;font-weight:850;color:var(--ink);font-variant-numeric:tabular-nums}
+  .firstmove ul{margin:14px 0 0;padding-left:0;list-style:none}
+  .firstmove li{padding:5px 0 5px 24px;position:relative;color:var(--muted);font-size:.95rem}
+  .firstmove li::before{content:"→";position:absolute;left:0;color:var(--accent);font-weight:700}
+  .firstmove b{color:var(--ink)}
+
+  /* pricing ladder */
+  .ladder{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:26px}
+  @media (max-width:820px){.ladder{grid-template-columns:1fr}}
+  .tier{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:24px;display:flex;flex-direction:column;transition:border-color .18s,transform .18s,box-shadow .18s}
+  .tier:hover{border-color:color-mix(in srgb,var(--accent) 42%,var(--line));transform:translateY(-2px);box-shadow:0 14px 40px -26px color-mix(in srgb,var(--accent) 62%,transparent)}
+  .tier .num{font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--faint);font-weight:700}
+  .tier h3{font-size:1.28rem;margin:.3rem 0 .15rem}
+  .tier .role{color:var(--accent);font-size:.86rem;font-weight:600;margin-bottom:.7rem}
+  .tier .desc{color:var(--muted);font-size:.92rem;margin:0 0 14px}
+  .pricerow{display:flex;flex-direction:column;gap:8px;margin:6px 0 14px}
+  .pline{display:flex;justify-content:space-between;gap:12px;align-items:baseline;padding:9px 12px;border:1px solid var(--line);border-radius:10px;background:var(--panel2)}
+  .pline .n{font-size:.88rem;color:var(--ink)}
+  .pline .v{font-family:var(--mono);font-weight:700;font-size:.9rem;color:var(--accent);white-space:nowrap}
+  .tier .asset{margin-top:auto;font-size:.82rem;color:var(--faint);border-top:1px dashed var(--line);padding-top:12px}
+  .tier .asset b{color:var(--muted)}
+  .tier.later{opacity:.9;border-style:dashed}
+  .tier.retainer{border-color:color-mix(in srgb,var(--ok) 40%,var(--line))}
+  .tier.retainer .role{color:var(--ok)}
+  .tier.retainer .pline .v{color:var(--ok)}
+
+  /* capital allowances lever */
+  .lever{display:grid;grid-template-columns:1.3fr .85fr;gap:22px;align-items:center;margin-top:22px;background:linear-gradient(180deg,color-mix(in srgb,var(--gold) 8%,var(--panel)),var(--panel));border:1px solid color-mix(in srgb,var(--gold) 40%,var(--line));border-radius:16px;padding:26px}
+  @media (max-width:820px){.lever{grid-template-columns:1fr}}
+  .lever h3{margin:.1rem 0 .5rem;font-size:1.2rem}
+  .lever p{color:var(--muted);font-size:.94rem;margin:0}
+  .lever .calc{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px;text-align:center}
+  .lever .calc .big{font-size:2rem;font-weight:850;color:var(--gold);font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+  .lever .calc .sm{color:var(--muted);font-size:.82rem;margin-top:2px}
+  .lever .calc .row{display:flex;justify-content:space-between;font-size:.86rem;padding:4px 0;color:var(--ink)}
+  .lever .calc .row span:last-child{font-family:var(--mono);font-weight:600}
+
+  /* gov track */
+  .gov{background:linear-gradient(120deg,color-mix(in srgb,var(--accent2) 10%,var(--panel)),var(--panel));border:1px solid color-mix(in srgb,var(--accent2) 42%,var(--line));border-radius:16px;padding:30px 26px}
+  .gov .num{font-size:clamp(2rem,5vw,3rem);font-weight:850;background:linear-gradient(120deg,var(--accent),var(--accent2));-webkit-background-clip:text;background-clip:text;color:transparent;letter-spacing:-.03em}
+  .gov h2{margin:.2rem 0 .5rem}
+  .gov .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}
+  @media (max-width:720px){.gov .grid{grid-template-columns:1fr}}
+  .gov .g{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:15px}
+  .gov .g b{display:block;font-size:.82rem;color:var(--accent);font-family:var(--mono);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
+  .gov .g span{color:var(--muted);font-size:.9rem}
+
+  /* sequence */
+  .seq{counter-reset:step;margin-top:22px;display:flex;flex-direction:column;gap:10px}
+  .step{display:grid;grid-template-columns:auto 1fr;gap:16px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:15px 18px}
+  .step::before{counter-increment:step;content:counter(step);width:34px;height:34px;border-radius:50%;display:grid;place-items:center;font-family:var(--mono);font-weight:700;color:var(--accent-ink);background:linear-gradient(135deg,var(--accent),var(--accent2));font-size:.95rem}
+  .step b{color:var(--ink)}.step span{color:var(--muted);font-size:.93rem}
+
+  /* table */
+  .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:var(--r);margin-top:18px}
+  table{width:100%;border-collapse:collapse;font-size:.92rem;min-width:520px}
+  th,td{text-align:left;padding:12px 16px;border-bottom:1px solid var(--line)}
+  th{font-size:.7rem;text-transform:uppercase;letter-spacing:.08em;color:var(--faint);font-weight:700;background:var(--panel2)}
+  tr:last-child td{border-bottom:none}
+  td .v{font-family:var(--mono);color:var(--accent);font-weight:600}
+  td.rec .v{color:var(--ok)}
+
+  .notes{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:22px}
+  @media (max-width:820px){.notes{grid-template-columns:1fr}}
+
+  .free{background:var(--panel);border:1px solid color-mix(in srgb,var(--ok) 45%,var(--line));border-left:3px solid var(--ok);border-radius:14px;padding:24px;margin-top:8px}
+  .free h3{margin:0 0 .4rem;font-size:1.15rem}
+  .free p{margin:0;color:var(--muted);font-size:.96rem}
+
+  footer{padding:40px 0;color:var(--muted);font-size:.88rem}
+  footer .wrap{display:flex;gap:18px;flex-wrap:wrap;justify-content:space-between;align-items:center}
+  footer a{color:var(--muted)}footer a:hover{color:var(--ink)}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<nav><div class="wrap">
+  <span class="brand"><span class="dot"></span>FallForge · monetization</span>
+  <div class="links">
+    <a href="#wedge">The wedge</a>
+    <a href="#first">First move</a>
+    <a href="#ladder">The ladder</a>
+    <a href="#gov">Gov track</a>
+    <a href="#sequence">Sequence</a>
+    <button class="theme" id="theme" type="button">Theme</button>
+  </div>
+</div></nav>
+
+<header class="hero"><div class="wrap">
+  <span class="eyebrow">The provable-AI ladder</span>
+  <h1>Own the AI you're renting.</h1>
+  <p class="wedge">A private model, with a receipt that could fail, that anyone can re-run.</p>
+  <p class="lead">Everyone can install a local model — that lane is crowded, and ownership is table stakes. The moat is the <strong>proof</strong>: a mutation-gated receipt that proves the test could fail, re-run by a party who doesn't hold your key. This is the strategy that turns that one defensible asset into revenue — sequenced, priced, and mapped to what's already live.</p>
+  <div class="cta">
+    <a class="btn primary" href="#first">The first move →</a>
+    <a class="btn" href="#ladder">See the ladder</a>
+    <a class="btn" href="https://sjgant80-hub.github.io/fallforgemint/" target="_blank" rel="noopener">The live mint ↗</a>
+  </div>
+  <div class="badges">
+    <span class="badge">Sell the <b>proof</b>, not the code</span>
+    <span class="badge">MIT-clean · charge for friction, liability &amp; minting</span>
+    <span class="badge">First buyer: <b>lean AI-native SMEs</b></span>
+    <span class="badge">Parallel: <b>£1m–£3m</b> UK gov track</span>
+  </div>
+</div></header>
+
+<section id="wedge" class="anchor"><div class="wrap">
+  <span class="eyebrow">The wedge</span>
+  <h2>One position nobody else occupies</h2>
+  <p class="lead">Two lanes are already crowded — and neither is this. Local-inference tooling (Ollama, NIM, vLLM) runs a model but has no proof. AI-governance platforms (Credo, Holistic, Fiddler, IBM) do cloud paperwork but never touch the actual inference. Sovereign local execution <em>plus</em> a verifiable per-inference receipt is unoccupied.</p>
+  <div class="wedgegrid">
+    <div class="card"><span class="ic">Not this</span><h3>Owned / local models</h3><p class="no">Crowded lane. Ownership is table stakes — it doesn't win the deal on its own.</p></div>
+    <div class="card"><span class="ic">Not this</span><h3>Signed receipts alone</h3><p class="no">A software-key signature is Level 0 — the holder can fabricate it. Never argue it as the moat.</p></div>
+    <div class="card moat"><span class="ic">The moat</span><h3>Proof that could fail + re-run</h3><p class="yes">The witness gate proves the test <em>could fail</em>; a CI run re-executes it by someone who doesn't hold your key. <em>"TEEs prove where it ran. We prove the test could fail — and anyone can re-run it."</em></p></div>
+  </div>
+</div></section>
+
+<section id="first" class="anchor"><div class="wrap">
+  <div class="firstmove">
+    <span class="tag">Do this now — the sharpest first-revenue move</span>
+    <h2>Sell one done-for-you mint. Get one invoice paid.</h2>
+    <p class="lead">The product is already live and gated — the only work left is sales. Seventeen hundred repos and £0 because the number that never moved is <b>humans who paid</b>, not things built.</p>
+    <div class="price">£2,500 – £6,000 <span style="font-size:.9rem;color:var(--muted);font-weight:500">/ model &nbsp;·&nbsp; cash in weeks</span></div>
+    <ul>
+      <li>Qualify with one question: <b>"What task do you feed an LLM most, and how many times a month?"</b></li>
+      <li>Deliver a private specialist model on their task, proven to beat the base model on their own held-out data, with a signed scorecard and a one-file installer.</li>
+      <li>The guarantee only you can make: <b>"If the receipt doesn't say BEATS, you don't pay."</b> Safe — the gate is objective and returns LOSES.</li>
+      <li>Funnel: <b>fall-os</b> (the game) → <b>fallforgemint</b> (mint · prove · own, live) → the calculator that honestly says <em>rent-wins</em> below their threshold. The tool that tells them not to buy is what makes them trust the one that says buy.</li>
+      <li>Cash path: flip <b>fallforge-store</b> live (Stripe + host) for self-serve checkout, or just invoice the first three by hand. Invoice #1 doesn't need Stripe.</li>
+    </ul>
+  </div>
+</div></section>
+
+<section id="ladder" class="anchor"><div class="wrap">
+  <span class="eyebrow">The ladder</span>
+  <h2>Four tiers — each one sells the proof</h2>
+  <p class="lead">MIT-clean throughout: never charge for the code. Charge for the deployment friction, the enterprise liability, and the custom model minting.</p>
+  <div class="ladder">
+
+    <div class="tier">
+      <span class="num">Tier 1 · the revenue engine</span>
+      <h3>Mint</h3>
+      <div class="role">Self-serve funnel + paid done-for-you</div>
+      <p class="desc">Paste a task and examples, walk out owning a private specialist. Free to try, paid to have it done and weight-tuned.</p>
+      <div class="pricerow">
+        <div class="pline"><span class="n">Self-serve DIY</span><span class="v">Free</span></div>
+        <div class="pline"><span class="n">Done-for-you · per model</span><span class="v">£2.5k–£6k</span></div>
+        <div class="pline"><span class="n">Multi-domain pack (3–5)</span><span class="v">£9k–£20k</span></div>
+        <div class="pline"><span class="n">Keep-it-sharp add-on</span><span class="v">£300–£900/mo</span></div>
+      </div>
+      <div class="asset"><b>Live now:</b> fallforgemint (witness 192/193) · fallforge-store (Stripe+host to go live) · mint pitch page.</div>
+    </div>
+
+    <div class="tier">
+      <span class="num">Tier 2 · high-ticket pilot</span>
+      <h3>Foundry Build</h3>
+      <div class="role">"Proof-installed" sovereign stack</div>
+      <p class="desc">Not "we install Ollama." A private, mutation-gated, receipt-emitting AI stack on their metal — every organ proves it works and could fail, and their people can re-run the proof.</p>
+      <div class="pricerow">
+        <div class="pline"><span class="n">Foundry Lite · software, their hardware</span><span class="v">£6k–£12k</span></div>
+        <div class="pline"><span class="n">Foundry Standard · turnkey box + stack</span><span class="v">£15k–£30k</span></div>
+        <div class="pline"><span class="n">Foundry Rack · department / multi-user</span><span class="v">£35k–£75k+</span></div>
+      </div>
+      <div class="asset"><b>Assets:</b> fallbrain · minted models · agent-proof ledger · witness · the "how a company runs on FallForge" explainer.</div>
+    </div>
+
+    <div class="tier retainer">
+      <span class="num">Tier 3 · the real business</span>
+      <h3>Sovereign Care</h3>
+      <div class="role">Proof as a subscription · the MRR</div>
+      <p class="desc">Red Hat model: never charge for the MIT code — charge to keep it alive, proven and accountable. Every month, a signed receipt that their AI still works and hasn't drifted.</p>
+      <div class="pricerow">
+        <div class="pline"><span class="n">Care Basic · monthly drift receipt</span><span class="v">£750–£1.5k/mo</span></div>
+        <div class="pline"><span class="n">Care Standard · + governance pack</span><span class="v">£2k–£4k/mo</span></div>
+        <div class="pline"><span class="n">Care Sovereign · + dedicated ops agent</span><span class="v">£5k–£9k/mo</span></div>
+      </div>
+      <div class="asset"><b>Assets:</b> witness (re-run gate) · agent-proof (ledger) · sididy mesh (ops, free on local) · kar-foldcycle (run-cheap: 95% prefill / 67% embed, measured).</div>
+    </div>
+
+    <div class="tier later">
+      <span class="num">Tier 4 · the platform · later</span>
+      <h3>Kard Marketplace</h3>
+      <div class="role">Boot keys · curated organs · rev-share</div>
+      <p class="desc">Tamper-evident boot keys (fallkard), curated skins, a marketplace of pre-minted proven organs. The Series-A-shaped platform — it needs a backend, accounts and the money rail.</p>
+      <div class="pricerow">
+        <div class="pline"><span class="n">Boot key / kard</span><span class="v">Priced later</span></div>
+        <div class="pline"><span class="n">Marketplace</span><span class="v">Rev-share</span></div>
+      </div>
+      <div class="asset"><b>Sequence:</b> ships <em>after</em> Tiers 1–3 have paying customers. Opening it first is how the last 1,700 repos happened. Park it, don't kill it.</div>
+    </div>
+
+  </div>
+
+  <div class="lever">
+    <div>
+      <span class="eyebrow" style="color:var(--gold)"><span style="background:linear-gradient(90deg,var(--gold),transparent)"></span>The finance director's yes</span>
+      <h3>The foundry hardware is a Year-1 write-off</h3>
+      <p>The box and setup are qualifying plant &amp; machinery. Under UK <b>Full Expensing</b>, a company deducts <b>100% in year one</b> on new main-rate plant &amp; machinery — and that explicitly includes IT equipment and software, uncapped, now permanent. (The £1m <b>Annual Investment Allowance</b> does the same for companies and sole traders; a <b>40% first-year allowance</b> covers anything outside full expensing from Jan 2026.) Depreciated over five years it's a slow cost; written off this year it's an easy yes.</p>
+    </div>
+    <div class="calc">
+      <div class="row"><span>Foundry Standard</span><span>£20,000</span></div>
+      <div class="row"><span>Year-1 relief @ 25% CT</span><span>−£5,000</span></div>
+      <div class="big">~£15,000</div>
+      <div class="sm">effective net cost, written off in year one</div>
+    </div>
+  </div>
+</div></section>
+
+<section id="gov" class="anchor"><div class="wrap">
+  <div class="gov">
+    <span class="eyebrow">The big parallel track</span>
+    <div class="num">£1m – £3m</div>
+    <h2>UK Sovereign AI procurement — via agent-proof</h2>
+    <p class="lead"><b>agent-proof</b> is NCSC Challenge 3, "Enabling safe AI agent adoption," almost word-for-word — MIT, no-LLM-judge, tamper-evident audit ledger, witness-clean, CI-green. This is <b>procurement, not a grant</b>: the government is the customer, you keep all the IP (they get a public-sector licence), contracts £250k–£10m.</p>
+    <div class="grid">
+      <div class="g"><b>The move now</b><span>File the free EOI / Approved Supplier List on sovereignai.gov.uk — it unlocks the Dec 2026 and Feb 2027 batches. EOI ~2 weeks before → ~17 Nov 2026.</span></div>
+      <div class="g"><b>Who runs it</b><span>Counsel leads, you sign — that's how gov procurement works. The product is already built; the gap is a named delivery partner + one specific gov use-case.</span></div>
+      <div class="g"><b>Why it's clean</b><span>You keep all IP, no equity, no dilution. Biggest single number on the table, nearest hard deadline. Don't build for it — file the EOI.</span></div>
+    </div>
+  </div>
+</div></section>
+
+<section id="sequence" class="anchor"><div class="wrap">
+  <span class="eyebrow">The sequence</span>
+  <h2>What to do, in order</h2>
+  <div class="seq">
+    <div class="step"><div><b>One paid mint invoice — now.</b> <span>Drive the qualifying question, close done-for-you on one SME, "no BEATS no pay." £2.5k–£6k, cash in weeks.</span></div></div>
+    <div class="step"><div><b>File the Sovereign AI EOI — now, in parallel.</b> <span>Free, counsel-led. Unlocks the £1m–£3m pipeline (~17 Nov).</span></div></div>
+    <div class="step"><div><b>Land the first Foundry pilot — weeks.</b> <span>Lite or Standard, £6k–£30k, off the first mint customer or a warm intro. Lead with the write-off.</span></div></div>
+    <div class="step"><div><b>Attach Care to every foundry.</b> <span>£750–£1.5k/mo recurring — the MRR flywheel.</span></div></div>
+    <div class="step"><div><b>The marketplace — later.</b> <span>Once foundries are paying.</span></div></div>
+  </div>
+
+  <div class="tablewrap">
+    <table>
+      <tr><th>Line</th><th>Price</th><th>Cash timing</th></tr>
+      <tr><td>Done-for-you mint</td><td class="v">£2,500–£6,000 / model</td><td>weeks</td></tr>
+      <tr><td>Multi-domain pack</td><td class="v">£9,000–£20,000</td><td>weeks</td></tr>
+      <tr><td>Foundry Lite / Standard / Rack</td><td class="v">£6k / £15k–£30k / £35k–£75k+</td><td>1–2 months</td></tr>
+      <tr class="rec"><td>Sovereign Care</td><td class="v">£750–£9,000 / mo</td><td>recurring</td></tr>
+      <tr><td>UK Sovereign AI contract</td><td class="v">£1m–£3m</td><td>6–12 months</td></tr>
+    </table>
+  </div>
+  <p class="lead" style="margin-top:16px">Five foundries on Care ≈ <b>£10k–£20k/mo recurring</b> within a couple of quarters, on top of mint one-offs — while the £1m–£3m gov track runs in parallel on a product that's already done.</p>
+</div></section>
+
+<section class="anchor"><div class="wrap">
+  <span class="eyebrow">The free unlock</span>
+  <div class="free">
+    <h3>Land witness in one outside team's CI</h3>
+    <p>Get one external FAIL in a repo you don't own. Free, and it converts "private garden" → "product with a user." It's the proof the entire ladder rests on — do it before Care and the audit trail go out the door.</p>
+  </div>
+  <div class="notes">
+    <div class="card"><span class="ic">Positioning</span><h3>Pitch the threshold, not a multiple</h3><p>The own-vs-rent calculator gives <em>this</em> buyer's real number and honestly returns rent-wins below ~500k–2M tokens/day. That honesty is the conversion asset.</p></div>
+    <div class="card"><span class="ic">Positioning</span><h3>Sit in the seam</h3><p>Local-inference tooling has no proof; AI-governance has no runtime receipt. Sovereign local + a verifiable per-inference receipt is the unoccupied ground.</p></div>
+    <div class="card"><span class="ic">Positioning</span><h3>Sell friction, not code</h3><p>The code stays MIT. Charge for the deployment friction, the enterprise liability, and the minting. Konomi architecture credited on every surface.</p></div>
+  </div>
+</div></section>
+
+<footer><div class="wrap">
+  <span>FallForge — the provable-AI ladder · <span class="mono">sjgant80-hub</span></span>
+  <span>Powered by the Konomi architecture, created by Thomas Frumkin · MIT</span>
+</div></footer>
+
+<script>
+  (function(){
+    var b=document.getElementById('theme');
+    function cur(){var r=document.documentElement.getAttribute('data-theme');if(r)return r;return matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light';}
+    try{var s=localStorage.getItem('ffm-theme');if(s)document.documentElement.setAttribute('data-theme',s);}catch(e){}
+    b&&b.addEventListener('click',function(){var n=cur()==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',n);try{localStorage.setItem('ffm-theme',n);}catch(e){}});
+  })();
+</script>
+</html>
